@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #74ebe5, #8a2387);">
+
+    <!-- Form Container with White Background -->
+    <form action="#" method="post" style="background-color: #ffffff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); width: 100%; max-width: 550px;">
+        
+        <h2 style="margin-top: 0; margin-bottom: 5px;">Registration</h2>
+        <hr align="left" width="50" size="3" color="#8a2387" style="border: none; background-color: #8a2387; height: 3px; margin-bottom: 20px;">
+
+        <table cellpadding="5" cellspacing="5" style="width: 100%;">
+            <!-- Row 1: Full Name & Username -->
+            <tr>
+                <td>
+                    <label for="fullname"><b>Full Name</b></label><br>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter your name" style="width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+                <td>
+                    <label for="username"><b>Username</b></label><br>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" style="width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+            </tr>
+
+            <!-- Row 2: Email & Phone Number -->
+            <tr>
+                <td>
+                    <label for="email"><b>Email</b></label><br>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" style="width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+                <td>
+                    <label for="phone"><b>Phone Number</b></label><br>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your number" style="width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+            </tr>
+
+            <!-- Row 3: Password & Confirm Password -->
+            <tr>
+                <td>
+                    <label for="password"><b>Password</b></label><br>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" style="width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+                <td>
+                    <label for="confirmpassword"><b>Confirm Password</b></label><br>
+                    <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm your password" style="width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+            </tr>
+        </table>
+
+        <br>
+
+        <!-- Gender Selection -->
+        <b>Gender</b><br><br>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="prefer_not" name="gender" value="prefer_not_to_say">
+        <label for="prefer_not">Prefer not to say</label>
+
+        <br><br><br>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Register" style="width: 100%; padding: 10px; background: linear-gradient(to right, #74ebe5, #8a2387); border: none; color: white; font-weight: bold; border-radius: 4px; cursor: pointer;">
+    </form>
+
+</body>
+</html>
