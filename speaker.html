@@ -1,43 +1,35 @@
-```html
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speaker Submission</title>
+    <title>Document</title>
 </head>
 
 <body>
-
     <center>
-
         <h1>Speaker Submission</h1>
-
         <p>Want to speak at our fake conference?</p>
         <p>Fill out this form</p>
-
+       
         <table>
-
             <tr>
                 <td>
-                    <label for="speakername">Name</label>
+                    <label for="speakername"> Name </label>
                 </td>
                 <td>
                     <input type="text" id="speakername" name="speakername">
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <label for="useremail">Email</label>
                 </td>
                 <td>
-                    <input type="email" id="useremail" name="useremail" placeholder="you@example.com">
+                    <input type="text" id="useremail" name="useremail" placeholder="you@example.com">
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <label>Type of talk</label>
@@ -45,58 +37,52 @@
                 <td>
                     <input type="radio" name="type_of_talk"> Main stage
                     <input type="radio" name="type_of_talk"> Workshop
+
                 </td>
             </tr>
-
             <tr>
                 <td>
-                    <label for="size">T-shirt size</label>
+                    <label for="size"> T-shirt size</label>
                 </td>
                 <td>
-                    <select id="size" name="size">
-                        <option value="Extra small">Extra small</option>
-                        <option value="Small">Small</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large</option>
-                        <option value="Extra Large">Extra Large</option>
+                   <select id="size">
+                    <option value="Extra small">Extra small</option>
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="Large">Large</option>
+                    <option value="Extra Large">Extra Large</option>
                     </select>
                 </td>
             </tr>
-
             <tr>
                 <td>
-                    <label for="Abstract">Abstract</label>
+                    <label for="Abstract"> Abstract</label>
                 </td>
                 <td>
-                    <textarea id="Abstract" name="Abstract" rows="5" cols="30"></textarea>
+                    <textarea name="Abstract" id="Abstract" rows="5" cols="30"></textarea>
                 </td>
             </tr>
-
             <tr>
+                
                 <td colspan="2">
                     Describe your talk in 500 words or less
                 </td>
             </tr>
-
             <tr>
-                <td></td>
                 <td>
-                    <input type="checkbox" id="availability" name="availability">
-                    I'm actually available the date of the talk
+                    
+                </td>
+                <td>
+                    <input type="checkbox" id="availability" name="availability"> I'm actually available the date of the talk
                 </td>
             </tr>
-
             <tr align="center">
                 <td colspan="2">
                     <button>Submit</button>
                 </td>
             </tr>
-
         </table>
-
     </center>
-
 </body>
 
 </html>
-```

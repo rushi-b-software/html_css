@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Input Types Showcase</title>
+</head>
+<body>
+
+    <h2>Student Registration Form</h2>
+    <p>This form showcases different types of HTML input fields using a table layout.</p>
+
+    <form action="#" method="get">
+        
+        <table border="1" cellpadding="8" cellspacing="0">
+            
+            <tr>
+                <td><label for="username">Full Name (Text):</label></td>
+                <td><input type="text" id="username" name="username" placeholder="John Doe"></td>
+            </tr>
+<label for=""></label>
+            <tr>
+                <td><label for="userpass">Password (Password):</label></td>
+                <td><input type="password" id="userpass" name="userpass"></td>
+            </tr>
+
+            <tr>
+                <td><label for="userage">Age (Number):</label></td>
+                <td><input type="number" id="userage" name="userage" min="1" max="100"></td>
+            </tr>
+
+            <tr>
+                <td><label for="useremail">Email Address (Email):</label></td>
+                <td><input type="email" id="useremail" name="useremail" placeholder="example@email.com"></td>
+            </tr>
+
+            <tr>
+                <td>Gender (Radio):</td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interests (Checkbox):</td>
+                <td>
+                    <input type="checkbox" id="coding" name="interests" value="coding">
+                    <label for="coding">Coding</label>
+                    <br>
+                    <input type="checkbox" id="music" name="interests" value="music">
+                    <label for="music">Music</label>
+                    <br>
+                    <input type="checkbox" id="sports" name="interests" value="sports">
+                    <label for="sports">Sports</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="country">Country (Select/Dropdown):</label></td>
+                <td>
+                    <select id="country" name="country">
+                        <option value="">-- Choose a Country --</option>
+                        <option value="usa">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="india">India</option>
+                        <option value="canada">Canada</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="birthdate">Date of Birth (Date):</label></td>
+                <td><input type="date" id="birthdate" name="birthdate"></td>
+            </tr>
+
+            <tr>
+                <td><label for="favcolor">Favorite Color (Color):</label></td>
+                <td><input type="color" id="favcolor" name="favcolor" value="#ff0000"></td>
+            </tr>
+
+            <tr>
+                <td><label for="userfile">Upload Photo (File):</label></td>
+                <td><input type="file" id="userfile" name="userfile"></td>
+            </tr>
+
+            <tr>
+                <td><label for="bio">About Yourself (Textarea):</label></td>
+                <td><textarea id="bio" name="bimnx;ko" rows="4" cols="30" placeholder="Write a short bio..."></textarea></td>
+            </tr>
+
+            <tr>
+                <td><label for="skill">Skill Level (Range):</label></td>
+                <td><input type="range" id="skill" name="skill" min="1" max="10"></td>
+            </tr>
+
+            <tr>
+                <td>Actions (Submit / Reset):</td>
+                <td>
+                    <input type="submit" value="Submit Form">
+                    <input type="reset" value="Clear All">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+</body>
+</html>
