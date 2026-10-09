@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
 
-        body {
+        .page-body {
             margin: 0;
             padding: 20px;
             background-color: #eef2f7;
@@ -23,7 +23,7 @@
             line-height: 1.6;
         }
 
-        ul {
+        .unordered-list {
             width: 80%;
             min-width: 250px;
             max-width: 700px;
@@ -58,7 +58,7 @@
             opacity: 1;
         }
 
-        ol {
+        .ordered-list {
             width: 80%;
             min-width: 250px;
             max-width: 700px;
@@ -93,7 +93,7 @@
             opacity: 1;
         }
 
-        li {
+        .list-item {
             margin: 8px 0;
             padding: 8px 12px;
 
@@ -131,41 +131,45 @@
                         box-shadow 0.3s ease;
         }
 
-        ul li {
+        .unordered-list .list-item {
             border-left: 4px solid #1976d2;
         }
 
-        ol li {
+        .ordered-list .list-item {
             border-left: 4px solid #ef6c00;
         }
 
-        li:hover {
+        .list-item:hover {
             background-color: #dcedc8;
             color: #245b16;
             box-shadow: 0 3px 8px #00000015;
             cursor: pointer;
         }
+
+        .main-heading {
+          
+        }
     </style>
 </head>
 
-<body>
+<body class="page-body">
 
-    <h1>HTML Unordered List</h1>
+    <h1 class="main-heading">HTML Unordered List</h1>
 
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>Python</li>
+    <ul class="unordered-list">
+        <li class="list-item">HTML</li>
+        <li class="list-item">CSS</li>
+        <li class="list-item">JavaScript</li>
+        <li class="list-item">Python</li>
     </ul>
 
-    <h1>HTML Ordered List</h1>
+    <h1 class="main-heading">HTML Ordered List</h1>
 
-    <ol>
-        <li>Open Visual Studio Code</li>
-        <li>Create an HTML file</li>
-        <li>Write the HTML code</li>
-        <li>Save and run the file</li>
+    <ol class="ordered-list">
+        <li class="list-item">Open Visual Studio Code</li>
+        <li class="list-item">Create an HTML file</li>
+        <li class="list-item">Write the HTML code</li>
+        <li class="list-item">Save and run the file</li>
     </ol>
 
 </body>
