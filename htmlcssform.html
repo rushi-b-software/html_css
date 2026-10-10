@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML Form Elements</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .page-body {
+            margin: 0;
+            padding: 20px;
+            background-color: #eef2f7;
+            color: #222;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 700px;
+            min-width: 280px;
+            margin: 25px auto;
+            padding: 25px;
+            background-color: white;
+            color: #222;
+            border: 2px solid #d0d7de;
+            border-radius: 12px;
+            box-shadow: 0 5px 18px #00000020;
+            opacity: 1;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin: 12px 0 5px;
+            padding: 2px 0;
+            color: #173b70;
+            background-color: transparent;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            font-style: normal;
+            text-align: left;
+            text-decoration: none;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            word-spacing: 1px;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .form-input {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            min-height: 42px;
+            margin: 5px 0 15px;
+            padding: 10px 12px;
+            color: #222;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            font-style: normal;
+            text-align: left;
+            text-decoration: none;
+            border: 1px solid #aab4c0;
+            border-radius: 6px;
+            outline: none;
+            opacity: 1;
+            box-shadow: 0 1px 3px #00000010;
+            transition: border-color 0.3s ease,
+                        box-shadow 0.3s ease,
+                        background-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 5px #1976d255;
+            background-color: #f8fbff;
+        }
+
+        .radio-input,
+        .checkbox-input {
+            display: inline-block;
+            width: auto;
+            min-height: auto;
+            margin: 8px 6px 8px 0;
+            padding: 0;
+            accent-color: #1976d2;
+            cursor: pointer;
+            box-shadow: none;
+        }
+
+        .radio-input + .option-label,
+        .checkbox-input + .option-label {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .range-input {
+            padding: 0;
+            accent-color: #1976d2;
+            cursor: pointer;
+            box-shadow: none;
+        }
+
+        .color-input {
+            width: 80px;
+            height: 45px;
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        .file-input {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .date-input,
+        .time-input,
+        .datetime-input,
+        .month-input,
+        .week-input {
+            cursor: pointer;
+        }
+
+        .submit-input,
+        .reset-input,
+        .button-input {
+            display: inline-block;
+            width: auto;
+            min-width: 120px;
+            min-height: 42px;
+            margin: 10px 8px 5px 0;
+            padding: 10px 20px;
+            color: white;
+            background-color: #173b70;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #173b70;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px #00000020;
+            transition: background-color 0.3s ease,
+                        color 0.3s ease,
+                        transform 0.3s ease;
+        }
+
+        .submit-input:hover,
+        .reset-input:hover,
+        .button-input:hover {
+            background-color: #28599a;
+            border-color: #28599a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            display: block;
+            width: 100%;
+            min-height: 42px;
+            margin: 5px 0 15px;
+            padding: 10px 12px;
+            color: #222;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            text-align: left;
+            border: 1px solid #aab4c0;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 5px #1976d255;
+        }
+
+        .form-textarea {
+            display: block;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            min-height: 120px;
+            margin: 5px 0 15px;
+            padding: 12px;
+            color: #222;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            font-style: normal;
+            text-align: left;
+            text-decoration: none;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+            border: 1px solid #aab4c0;
+            border-radius: 6px;
+            outline: none;
+            resize: vertical;
+            overflow: auto;
+            box-shadow: 0 1px 3px #00000010;
+            transition: border-color 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 5px #1976d255;
+        }
+
+        .form-input:disabled,
+        .form-select:disabled,
+        .form-textarea:disabled {
+            background-color: #e5e7eb;
+            color: #777;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body class="page-body">
+
+    <h1 class="page-heading">HTML Form Elements</h1>
+
+    <form class="form-container">
+
+        <label class="form-label" for="fullname">Full Name:</label>
+        <input class="form-input" type="text" id="fullname"
+               name="fullname" placeholder="Enter your name">
+
+        <label class="form-label" for="password">Password:</label>
+        <input class="form-input" type="password" id="password"
+               name="password" placeholder="Enter password">
+
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-input" type="email" id="email"
+               name="email" placeholder="Enter email">
+
+        <label class="form-label" for="phone">Phone Number:</label>
+        <input class="form-input" type="tel" id="phone"
+               name="phone" placeholder="Enter phone number">
+
+        <label class="form-label" for="age">Age:</label>
+        <input class="form-input" type="number" id="age"
+               name="age" min="1" max="100"
+               placeholder="Enter age">
+
+        <label class="form-label" for="website">Website:</label>
+        <input class="form-input" type="url" id="website"
+               name="website" placeholder="Enter website URL">
+
+        <label class="form-label" for="search">Search:</label>
+        <input class="form-input" type="search" id="search"
+               name="search" placeholder="Search here">
+
+        <label class="form-label" for="birthday">Date:</label>
+        <input class="form-input date-input" type="date"
+               id="birthday" name="birthday">
+
+        <label class="form-label" for="meeting">Time:</label>
+        <input class="form-input time-input" type="time"
+               id="meeting" name="meeting">
+
+        <label class="form-label" for="event">Date and Time:</label>
+        <input class="form-input datetime-input" type="datetime-local"
+               id="event" name="event">
+
+        <label class="form-label" for="month">Month:</label>
+        <input class="form-input month-input" type="month"
+               id="month" name="month">
+
+        <label class="form-label" for="week">Week:</label>
+        <input class="form-input week-input" type="week"
+               id="week" name="week">
+
+        <label class="form-label" for="volume">Range:</label>
+        <input class="form-input range-input" type="range"
+               id="volume" name="volume" min="0" max="100" value="50">
+
+        <label class="form-label" for="favcolor">Choose Color:</label>
+        <input class="form-input color-input" type="color"
+               id="favcolor" name="favcolor">
+
+        <label class="form-label" for="resume">Upload File:</label>
+        <input class="form-input file-input" type="file"
+               id="resume" name="resume">
+
+        <label class="form-label" for="photo">Image Input:</label>
+        <input class="form-input image-input" type="image"
+               id="photo" alt="Submit image"
+               src="https://placehold.co/100x40/173b70/ffffff?text=Rushikesh">
+
+        <label class="form-label">Gender:</label>
+
+        <input class="form-input radio-input" type="radio"
+               id="male" name="gender" value="male">
+        <label class="option-label" for="male">Male</label>
+
+        <input class="form-input radio-input" type="radio"
+               id="female" name="gender" value="female">
+        <label class="option-label" for="female">Female</label>
+
+        <br>
+
+        <input class="form-input checkbox-input" type="checkbox"
+               id="agree" name="agree" value="yes">
+        <label class="option-label" for="agree">I agree to the terms</label>
+
+        <label class="form-label" for="course">Select Course:</label>
+        <select class="form-select" id="course" name="course">
+            <option value="">Choose a course</option>
+            <option value="entc">ENTC</option>
+            <option value="computer">Computer Engineering</option>
+            <option value="it">Information Technology</option>
+            <option value="mechanical">Mechanical Engineering</option>
+        </select>
+
+        <label class="form-label" for="message">Message:</label>
+        <textarea class="form-textarea" id="message" name="message"
+                  rows="5" cols="30"
+                  placeholder="Write your message here"></textarea>
+
+        <input class="form-input submit-input"
+               type="submit" value="Submit Form">
+
+        <input class="form-input reset-input"
+               type="reset" value="Reset Form">
+
+        <input class="form-input button-input" type="button"
+               value="Click Me" onclick="alert('Button clicked!')">
+
+        <input class="form-input hidden-input" type="hidden"
+               name="formtype" value="student">
+
+    </form>
+
+</body>
+</html>
