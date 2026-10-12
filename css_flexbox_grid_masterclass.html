@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flexbox & Grid Masterclass</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <i class="fa-solid fa-layer-group text-white text-lg"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">CSS Layout Hub</h1>
+          <p class="text-xs text-slate-400">Flexbox & Grid Textbook Masterclass</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex space-x-1 text-sm font-medium">
+        <a href="#mod-0" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-900 transition">0. Theory</a>
+        <a href="#mod-1" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-900 transition">1. Flexbox</a>
+        <a href="#mod-2" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-900 transition">2. CSS Grid</a>
+        <a href="#mod-3" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-900 transition">3. Architectures</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-900 bg-gradient-to-b from-indigo-950/30 to-slate-950">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6">
+        <i class="fa-solid fa-book-open"></i> Complete Textbook Edition
+      </span>
+      <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
+        Master Modern CSS <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">Layout Architecture</span>
+      </h2>
+      <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+        A comprehensive guide exploring Flexbox and CSS Grid. Packed with pedagogical theory, UX psychology, and interactive multi-example code playgrounds with live previews.
+      </p>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+    <section id="mod-0" class="space-y-8">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-indigo-400 font-mono text-sm tracking-wider uppercase">Module 0</span>
+        <h2 class="text-3xl font-bold text-white mt-1">Foundations of Page Layout & UX Impact</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-4 font-bold">1</div>
+          <h3 class="text-lg font-semibold text-white mb-2">What is a Layout?</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            A layout is the spatial arrangement of visual elements on a digital canvas. It dictates how textual hierarchy, media, and interactive components relate to one another across viewports.
+          </p>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="w-12 h-12 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center text-xl mb-4 font-bold">2</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Why Layout Matters</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Proper layout design establishes visual flow, guides user scanning patterns (like F-shapes and Z-patterns), minimizes cognitive load, and drives conversion goals.
+          </p>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-4 font-bold">3</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Responsive Mechanics</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Responsive design ensures fluid adaptability across devices. Modern CSS replaces brittle floats with flexible track systems and implicit wrapping rules.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="mod-1" class="space-y-12">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-indigo-400 font-mono text-sm tracking-wider uppercase">Module 1</span>
+        <h2 class="text-3xl font-bold text-white mt-1">CSS Flexbox (1-Dimensional Layout Engine)</h2>
+        <p class="text-slate-400 mt-1">Optimized for space distribution and alignment along a single axis (Row or Column).</p>
+      </div>
+
+      <!-- Sub-section 1.1: Direction & Wrapping -->
+      <div class="space-y-6">
+        <h3 class="text-xl font-bold text-indigo-300 flex items-center gap-2">
+          <i class="fa-solid fa-arrows-split-up-and-left"></i> 1.1 Direction & Wrapping (`flex-direction` & `flex-wrap`)
+        </h3>
+
+        <!-- Example 1.1.1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+            <span class="font-semibold text-sm text-slate-200">Example 1: Row vs Column Flow</span>
+            <div class="flex gap-2 text-xs font-mono text-slate-400"><span>HTML / CSS</span></div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-indigo-200 leading-relaxed">
+<span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+&lt;<span class="text-violet-400">div</span> <span class="text-cyan-400">class</span>=<span class="text-emerald-300">"flex-col-demo"</span>&gt;
+  &lt;<span class="text-violet-400">div</span>&gt;Item 1&lt;/<span class="text-violet-400">div</span>&gt;
+  &lt;<span class="text-violet-400">div</span>&gt;Item 2&lt;/<span class="text-violet-400">div</span>&gt;
+  &lt;<span class="text-violet-400">div</span>&gt;Item 3&lt;/<span class="text-violet-400">div</span>&gt;
+&lt;/<span class="text-violet-400">div</span>&gt;
+
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">flex-col-demo</span> {
+  display: flex;
+  flex-direction: column; <span class="text-slate-500">/* or row */</span>
+  gap: 12px;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center items-center">
+              <div class="w-full max-w-xs space-y-3">
+                <div class="bg-indigo-600/80 hover:bg-indigo-600 text-white p-3 rounded-xl font-medium text-center shadow transition">Flex Item 1 (Column)</div>
+                <div class="bg-indigo-600/80 hover:bg-indigo-600 text-white p-3 rounded-xl font-medium text-center shadow transition">Flex Item 2 (Column)</div>
+                <div class="bg-indigo-600/80 hover:bg-indigo-600 text-white p-3 rounded-xl font-medium text-center shadow transition">Flex Item 3 (Column)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 1.1.2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+            <span class="font-semibold text-sm text-slate-200">Example 2: Managing Overflow with `flex-wrap`</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-indigo-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">wrap-demo</span> {
+  display: flex;
+  flex-wrap: wrap; <span class="text-slate-500">/* Forces items onto new lines */</span>
+  gap: 12px;
+}
+.<span class="text-amber-300">wrap-demo</span> &gt; div {
+  flex: 1 1 120px; <span class="text-slate-500">/* min-width 120px */</span>
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="flex flex-wrap gap-3">
+                <div class="bg-violet-600/80 text-white p-3 rounded-xl font-medium text-center flex-1 min-w-[100px]">Card A</div>
+                <div class="bg-violet-600/80 text-white p-3 rounded-xl font-medium text-center flex-1 min-w-[100px]">Card B</div>
+                <div class="bg-violet-600/80 text-white p-3 rounded-xl font-medium text-center flex-1 min-w-[100px]">Card C</div>
+                <div class="bg-violet-600/80 text-white p-3 rounded-xl font-medium text-center flex-1 min-w-[100px]">Card D</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-section 1.2: Alignment & Distribution -->
+      <div class="space-y-6 pt-6">
+        <h3 class="text-xl font-bold text-indigo-300 flex items-center gap-2">
+          <i class="fa-solid fa-align-center"></i> 1.2 Alignment & Distribution (`justify-content` & `align-items`)
+        </h3>
+
+        <!-- Example 1.2.1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 1: Navbar Layout (`justify-content: space-between`)</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-indigo-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">navbar</span> {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <div class="font-bold text-white flex items-center gap-2"><i class="fa-solid fa-cube text-indigo-400"></i> Brand</div>
+                <div class="flex gap-4 text-sm text-slate-300">
+                  <span class="hover:text-indigo-400 cursor-pointer">Home</span>
+                  <span class="hover:text-indigo-400 cursor-pointer">Features</span>
+                  <span class="hover:text-indigo-400 cursor-pointer">Contact</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 1.2.2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 2: Perfect Centering with Flexbox</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-indigo-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">center-hero</span> {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="flex justify-center items-center bg-slate-950 h-32 rounded-xl border border-slate-800">
+                <div class="bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
+                  Centered CTA Box
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-section 1.3: Sizing & Flexibility -->
+      <div class="space-y-6 pt-6">
+        <h3 class="text-xl font-bold text-indigo-300 flex items-center gap-2">
+          <i class="fa-solid fa-expand"></i> 1.3 Sizing & Flexibility (`flex-grow`, `flex-shrink`, `flex-basis`)
+        </h3>
+
+        <!-- Example 1.3.1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 1: Proportional Growth (`flex-grow`)</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-indigo-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">item-1</span> { flex-grow: 1; }
+.<span class="text-amber-300">item-2</span> { flex-grow: 2; } <span class="text-slate-500">/* Takes twice remaining space */</span>
+.<span class="text-amber-300">item-3</span> { flex-grow: 1; }</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="flex gap-3">
+                <div class="bg-slate-800 text-center py-3 rounded-lg flex-1 text-xs font-semibold">Grow: 1</div>
+                <div class="bg-indigo-600 text-center py-3 rounded-lg flex-[2] text-xs font-semibold">Grow: 2 (Double)</div>
+                <div class="bg-slate-800 text-center py-3 rounded-lg flex-1 text-xs font-semibold">Grow: 1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mod-2" class="space-y-12">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-indigo-400 font-mono text-sm tracking-wider uppercase">Module 2</span>
+        <h2 class="text-3xl font-bold text-white mt-1">CSS Grid (2-Dimensional Layout Engine)</h2>
+        <p class="text-slate-400 mt-1">Controls rows and columns simultaneously for robust webpage architectures.</p>
+      </div>
+
+      <!-- Sub-section 2.1: Defining Tracks & Sizing -->
+      <div class="space-y-6">
+        <h3 class="text-xl font-bold text-violet-300 flex items-center gap-2">
+          <i class="fa-solid fa-table-cells"></i> 2.1 Tracks & Sizing Units (`fr`, `repeat`, `minmax`)
+        </h3>
+
+        <!-- Example 2.1.1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 1: Equal 3-Column Grid (`repeat(3, 1fr)`)</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-violet-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">grid-3col</span> {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="grid grid-cols-3 gap-3">
+                <div class="bg-violet-600/80 p-4 rounded-xl text-center text-xs font-bold">Col 1 (1fr)</div>
+                <div class="bg-violet-600/80 p-4 rounded-xl text-center text-xs font-bold">Col 2 (1fr)</div>
+                <div class="bg-violet-600/80 p-4 rounded-xl text-center text-xs font-bold">Col 3 (1fr)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 2.1.2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 2: Sidebar & Main Content Split</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-violet-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">sidebar-layout</span> {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="grid grid-cols-[100px_1fr] gap-3">
+                <div class="bg-slate-800 p-4 rounded-xl text-center text-xs font-bold text-slate-300">Sidebar (240px)</div>
+                <div class="bg-violet-600 p-4 rounded-xl text-center text-xs font-bold">Main Content (1fr)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-section 2.2: Template Areas -->
+      <div class="space-y-6 pt-6">
+        <h3 class="text-xl font-bold text-violet-300 flex items-center gap-2">
+          <i class="fa-solid fa-map"></i> 2.2 Semantic Layouts (`grid-template-areas`)
+        </h3>
+
+        <!-- Example 2.2.1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 1: Classic App Shell Layout</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-violet-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">app-shell</span> {
+  display: grid;
+  grid-template-areas: 
+    "header header"
+    "sidebar main"
+    "footer footer";
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="grid grid-cols-2 grid-rows-[auto_1fr_auto] gap-2 text-xs font-bold text-center">
+                <div class="col-span-2 bg-indigo-600 p-2 rounded-lg">Header</div>
+                <div class="bg-slate-800 p-4 rounded-lg text-slate-300">Sidebar</div>
+                <div class="bg-violet-600 p-4 rounded-lg">Main Content</div>
+                <div class="col-span-2 bg-slate-800 p-2 rounded-lg text-slate-300">Footer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-section 2.3: Responsive Auto-fit -->
+      <div class="space-y-6 pt-6">
+        <h3 class="text-xl font-bold text-violet-300 flex items-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 2.3 Responsive Auto-Fit & Auto-Fill (No Media Queries)
+        </h3>
+
+        <!-- Example 2.3.1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="bg-slate-850 px-6 py-4 border-b border-slate-800">
+            <span class="font-semibold text-sm text-slate-200">Example 1: Auto-Fit Cards (`grid-template-columns: repeat(auto-fit, minmax(120px, 1fr))`)</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+            <div class="p-6 bg-slate-950 font-mono text-xs overflow-x-auto text-violet-200 leading-relaxed">
+<span class="text-slate-500">/* CSS */</span>
+.<span class="text-amber-300">auto-grid</span> {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}</div>
+            <div class="p-6 bg-slate-900 flex flex-col justify-center">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div class="bg-violet-600/70 p-4 rounded-xl text-center font-bold text-xs">Card 1</div>
+                <div class="bg-violet-600/70 p-4 rounded-xl text-center font-bold text-xs">Card 2</div>
+                <div class="bg-violet-600/70 p-4 rounded-xl text-center font-bold text-xs">Card 3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mod-3" class="space-y-12">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-indigo-400 font-mono text-sm tracking-wider uppercase">Module 3</span>
+        <h2 class="text-3xl font-bold text-white mt-1">Real-World Combined Layout Architectures</h2>
+        <p class="text-slate-400 mt-1">Combining Flexbox and Grid to build production-ready components.</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+        <h3 class="text-xl font-bold text-white">E-Commerce Product Card Architecture</h3>
+        <p class="text-slate-400 text-sm">Utilizing CSS Grid for card grids, and Flexbox inside cards for pricing, rating, and CTA button placement.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+          <!-- Card 1 -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
+            <div class="h-32 bg-indigo-950/50 rounded-xl flex items-center justify-center text-indigo-400 font-bold mb-4">
+              <i class="fa-solid fa-shirt text-3xl"></i>
+            </div>
+            <div>
+              <span class="text-xs text-indigo-400 font-semibold uppercase">Apparel</span>
+              <h4 class="font-bold text-white text-base mt-1">Minimalist Hoodie</h4>
+            </div>
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-900">
+              <span class="font-mono text-lg font-bold text-emerald-400">$79.00</span>
+              <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-2 rounded-lg font-semibold transition">Add to Cart</button>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
+            <div class="h-32 bg-indigo-950/50 rounded-xl flex items-center justify-center text-indigo-400 font-bold mb-4">
+              <i class="fa-solid fa-shoe-prints text-3xl"></i>
+            </div>
+            <div>
+              <span class="text-xs text-indigo-400 font-semibold uppercase">Footwear</span>
+              <h4 class="font-bold text-white text-base mt-1">Runner Sneakers</h4>
+            </div>
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-900">
+              <span class="font-mono text-lg font-bold text-emerald-400">$120.00</span>
+              <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-2 rounded-lg font-semibold transition">Add to Cart</button>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
+            <div class="h-32 bg-indigo-950/50 rounded-xl flex items-center justify-center text-indigo-400 font-bold mb-4">
+              <i class="fa-solid fa-glasses text-3xl"></i>
+            </div>
+            <div>
+              <span class="text-xs text-indigo-400 font-semibold uppercase">Accessories</span>
+              <h4 class="font-bold text-white text-base mt-1">Classic Sunglasses</h4>
+            </div>
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-900">
+              <span class="font-mono text-lg font-bold text-emerald-400">$45.00</span>
+              <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-2 rounded-lg font-semibold transition">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-900 mt-20 py-10 text-center text-slate-500 text-sm">
+    <p>CSS Flexbox & Grid Masterclass Textbook Guide — Built with HTML5, CSS3, & Tailwind CSS.</p>
+  </footer>
+
+</body>
+</html>

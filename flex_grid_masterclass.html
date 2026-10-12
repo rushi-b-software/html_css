@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flexbox & Grid Masterclass: Textbook & Interactive Guide</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #e0e7ff;
+      --secondary: #0ea5e9;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --code-bg: #1e293b;
+      --code-text: #f8fafc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem 1rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border-radius: 12px; }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.2rem; opacity: 0.9; }
+
+    /* Chapter / Section Cards */
+    .chapter { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .chapter-title { font-size: 1.8rem; color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem; }
+    
+    /* Textbooks / Educational Blocks */
+    .theory-box { background: #f0fdf4; border-left: 5px solid #22c55e; padding: 1.2rem; margin: 1rem 0 2rem 0; border-radius: 0 8px 8px 0; }
+    .theory-box h3 { color: #15803d; margin-bottom: 0.5rem; font-size: 1.2rem; }
+    
+    .example-block { margin: 2rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .example-header { background: #f1f5f9; padding: 0.75rem 1rem; font-weight: bold; font-size: 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
+    .example-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    @media (max-width: 850px) { .example-body { grid-template-columns: 1fr; } }
+    
+    .code-panel { background: var(--code-bg); color: var(--code-text); padding: 1rem; font-family: monospace; font-size: 0.85rem; overflow-x: auto; white-space: pre; }
+    .preview-panel { padding: 1rem; background: #fafafa; display: flex; flex-direction: column; justify-content: center; }
+    
+    /* Demo Helper Elements */
+    .demo-box { background: var(--primary); color: white; border-radius: 6px; padding: 1rem; font-weight: bold; text-align: center; font-size: 0.9rem; border: 2px solid #3730a3; }
+    .demo-box-alt { background: var(--secondary); color: white; border-radius: 6px; padding: 1rem; font-weight: bold; text-align: center; font-size: 0.9rem; }
+    .demo-box-accent { background: var(--accent); color: white; border-radius: 6px; padding: 1rem; font-weight: bold; text-align: center; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>HTML & CSS Layout Masterclass</h1>
+    <p>A Comprehensive Lesson Guide to Flexbox, CSS Grid & Responsive Architecture</p>
+  </header>
+
+  <!-- CHAPTER 0: LAYOUT THEORY & UX -->
+  <section class="chapter">
+    <h2 class="chapter-title">Module 0: Fundamentals of Layout & UX Impact</h2>
+    
+    <div class="theory-box">
+      <h3>What is a Web Layout?</h3>
+      <p>A layout is the visual architecture of a web page. It defines how digital elements (text, media, buttons, navigation) are organized relative to each other and the viewport screen size.</p>
+    </div>
+
+    <h3>1. Why Layout Design Matters</h3>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+      <li><strong>Visual Hierarchy:</strong> Directs the user's attention to primary information and calls to action (CTAs).</li>
+      <li><strong>Readability & Scannability:</strong> Structured spacing and content grouping reduce cognitive load.</li>
+      <li><strong>Consistency:</strong> Establishes predictability across multiple pages and views.</li>
+    </ul>
+
+    <h3>2. How Layouts Elevate Web User Experience (UX)</h3>
+    <p style="margin-bottom: 1.5rem;">Modern responsive layouts prevent <i>horizontal scrollbars</i>, preserve touch targets on mobile displays, and allow desktop browsers to take full advantage of wider viewports with structured multi-column flows.</p>
+  </section>
+
+  <!-- CHAPTER 1: FLEXBOX -->
+  <section class="chapter">
+    <h2 class="chapter-title">Module 1: CSS Flexbox (1D Layout System)</h2>
+    
+    <div class="theory-box">
+      <h3>Flexbox Core Concept</h3>
+      <p>Flexbox operates on a **single-axis model** (either row horizontally OR column vertically). It distributes space and aligns content dynamically within a parent container.</p>
+    </div>
+
+    <!-- Sub-Section 1.1 -->
+    <h3>1.1 Flex Direction & Axes</h3>
+    <p>The <code>flex-direction</code> property defines the primary axis.</p>
+    
+    <div class="example-block">
+      <div class="example-header">Example A: Horizontal Row Layout (Default)</div>
+      <div class="example-body">
+        <div class="code-panel">.container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: flex; flex-direction: row; gap: 10px;">
+            <div class="demo-box">Item 1</div>
+            <div class="demo-box">Item 2</div>
+            <div class="demo-box">Item 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header">Example B: Vertical Column Layout</div>
+      <div class="example-body">
+        <div class="code-panel">.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="demo-box">Item 1</div>
+            <div class="demo-box">Item 2</div>
+            <div class="demo-box">Item 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-Section 1.2 -->
+    <h3 style="margin-top: 2rem;">1.2 Alignment & Justification</h3>
+    <p><code>justify-content</code> handles spacing along the main axis, while <code>align-items</code> handles alignment on the cross axis.</p>
+
+    <div class="example-block">
+      <div class="example-header">Example A: Space Between (Navbar Pattern)</div>
+      <div class="example-body">
+        <div class="code-panel">.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}</div>
+        <div class="preview-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #e2e8f0; padding: 10px; border-radius: 6px;">
+            <div class="demo-box" style="padding: 0.5rem 1rem;">Logo</div>
+            <div style="display: flex; gap: 10px;">
+              <div class="demo-box-alt" style="padding: 0.5rem;">Home</div>
+              <div class="demo-box-alt" style="padding: 0.5rem;">About</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header">Example B: Perfect Center Alignment</div>
+      <div class="example-body">
+        <div class="code-panel">.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: flex; justify-content: center; align-items: center; height: 120px; background: #e2e8f0; border-radius: 6px;">
+            <div class="demo-box-accent">Centered Content</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-Section 1.3 -->
+    <h3 style="margin-top: 2rem;">1.3 Sizing & Flexibility (Flex Items)</h3>
+    
+    <div class="example-block">
+      <div class="example-header">Example: Proportional Item Growth (flex-grow)</div>
+      <div class="example-body">
+        <div class="code-panel">.item-1 { flex-grow: 1; }
+.item-2 { flex-grow: 2; } /* Twice as wide */
+.item-3 { flex-grow: 1; }</div>
+        <div class="preview-panel">
+          <div style="display: flex; gap: 10px;">
+            <div class="demo-box" style="flex-grow: 1;">Grow 1</div>
+            <div class="demo-box-accent" style="flex-grow: 2;">Grow 2</div>
+            <div class="demo-box" style="flex-grow: 1;">Grow 1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2: CSS GRID -->
+  <section class="chapter">
+    <h2 class="chapter-title">Module 2: CSS Grid (2D Layout System)</h2>
+    
+    <div class="theory-box">
+      <h3>CSS Grid Core Concept</h3>
+      <p>CSS Grid is a **two-dimensional layout engine**. It controls both columns and rows simultaneously, allowing precise alignment across complex multi-card layouts and page templates.</p>
+    </div>
+
+    <!-- Sub-Section 2.1 -->
+    <h3>2.1 Defining Tracks with Units (fr, repeat, minmax)</h3>
+
+    <div class="example-block">
+      <div class="example-header">Example A: Fractional Units (3 Equal Columns)</div>
+      <div class="example-body">
+        <div class="code-panel">.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div class="demo-box">Col 1</div>
+            <div class="demo-box">Col 2</div>
+            <div class="demo-box">Col 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header">Example B: Sidebar & Content Track Split</div>
+      <div class="example-body">
+        <div class="code-panel">.dashboard {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 10px;">
+            <div class="demo-box-alt">Sidebar</div>
+            <div class="demo-box">Main Content Area</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-Section 2.2 -->
+    <h3 style="margin-top: 2rem;">2.2 Template Areas (Semantic Layout)</h3>
+
+    <div class="example-block">
+      <div class="example-header">Example: Standard App Layout with grid-template-areas</div>
+      <div class="example-body">
+        <div class="code-panel">.app {
+  display: grid;
+  grid-template-areas: 
+    "header header"
+    "sidebar content"
+    "footer footer";
+  gap: 8px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: grid; grid-template-areas: 'header header' 'sidebar content' 'footer footer'; gap: 8px;">
+            <div class="demo-box" style="grid-area: header;">Header</div>
+            <div class="demo-box-alt" style="grid-area: sidebar; padding: 2rem 0.5rem;">Sidebar</div>
+            <div class="demo-box-accent" style="grid-area: content; padding: 2rem 0.5rem;">Main Content</div>
+            <div class="demo-box" style="grid-area: footer;">Footer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-Section 2.3 -->
+    <h3 style="margin-top: 2rem;">2.3 Responsive Auto-Fit Patterns (No Media Queries)</h3>
+
+    <div class="example-block">
+      <div class="example-header">Example: Dynamic Auto-Fitting Grid</div>
+      <div class="example-body">
+        <div class="code-panel">.responsive-cards {
+  display: grid;
+  grid-template-columns: 
+    repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}</div>
+        <div class="preview-panel">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px;">
+            <div class="demo-box">Card 1</div>
+            <div class="demo-box">Card 2</div>
+            <div class="demo-box">Card 3</div>
+            <div class="demo-box">Card 4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>
