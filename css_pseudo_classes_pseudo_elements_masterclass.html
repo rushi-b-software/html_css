@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Pseudo-Classes & Pseudo-Elements Masterclass</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Fira Code -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Live Demo Interactive Rules for Section 1.1: User Action */
+        .demo-hover-btn:hover {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+        }
+        .demo-hover-btn:active {
+            transform: translateY(1px);
+        }
+        .demo-focus-input:focus {
+            outline: none;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+            background-color: #0f172a !important;
+        }
+        .demo-focus-within:focus-within {
+            border-color: #8b5cf6 !important;
+            background: rgba(139, 92, 246, 0.05);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+        }
+        .demo-link:visited {
+            color: #c084fc;
+        }
+
+        /* Section 1.2: Structural / DOM State Demos */
+        .demo-struct-list li:first-child {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10b981;
+            color: #34d399;
+        }
+        .demo-struct-list li:last-child {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #ef4444;
+            color: #f87171;
+        }
+        .demo-struct-list li:nth-child(even) {
+            background: rgba(59, 130, 246, 0.08);
+        }
+        .demo-struct-list li:nth-child(3) {
+            border-left: 4px solid #f59e0b;
+        }
+        .demo-not-box p:not(.highlighted-p) {
+            opacity: 0.6;
+            border-style: dashed;
+        }
+        .demo-not-box p.highlighted-p {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: #6366f1;
+            color: #a5b4fc;
+        }
+
+        /* Section 1.3: Form States */
+        .demo-checkbox:checked + span {
+            color: #34d399;
+            font-weight: 600;
+            text-decoration: line-through;
+        }
+        .demo-checkbox:checked {
+            accent-color: #10b981;
+        }
+        .demo-required-input:required {
+            border-left: 3px solid #f59e0b;
+        }
+        .demo-valid-input:valid {
+            border-color: #10b981;
+        }
+        .demo-disabled-el:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #020617;
+        }
+
+        /* Section 2.1: Generated Content (::before / ::after) */
+        .demo-before-after::before {
+            content: "✨ ";
+        }
+        .demo-before-after::after {
+            content: " 🚀";
+        }
+        .demo-badge-gen::after {
+            content: " NEW";
+            font-size: 9px;
+            background: #ef4444;
+            color: white;
+            padding: 1px 5px;
+            border-radius: 9999px;
+            margin-left: 6px;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+
+        /* Section 2.2: Typography & Selection */
+        .demo-typography p::first-letter {
+            font-size: 2.5rem;
+            font-weight: 800;
+            float: left;
+            line-height: 1;
+            padding-right: 12px;
+            color: #818cf8;
+        }
+        .demo-typography p::first-line {
+            font-weight: 600;
+            color: #38bdf8;
+        }
+        .demo-selection-box::selection {
+            background: #f43f5e;
+            color: #ffffff;
+        }
+
+        /* Section 2.3: Forms & Placeholders */
+        .demo-placeholder-input::placeholder {
+            color: #64748b;
+            font-style: italic;
+        }
+        .demo-file-btn::file-selector-button {
+            background: #4f46e5;
+            color: white;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 12px;
+            transition: background 0.2s;
+        }
+        .demo-file-btn::file-selector-button:hover {
+            background: #4338ca;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <span class="text-white font-bold text-lg">✨</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Pseudo Masterclass</h1>
+                    <p class="text-xs text-slate-400">Interactive Reference & Live Playground</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                <a href="#pseudo-classes" class="hover:text-indigo-400 transition-colors">1. Pseudo-Classes (:)</a>
+                <a href="#pseudo-elements" class="hover:text-indigo-400 transition-colors">2. Pseudo-Elements (::)</a>
+                <a href="#playground" class="hover:text-indigo-400 transition-colors">3. Ultimate Playground</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/40 via-slate-950/0 to-slate-950/0 pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6">
+                🎨 Advanced CSS Selectors Guide
+            </span>
+            <h2 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Mastering <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Pseudo-Classes & Pseudo-Elements</span>
+            </h2>
+            <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+                An extensive, beautifully styled interactive reference featuring user actions, DOM states, form validations, generated content, typography styling, and live sandbox outputs.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto text-left">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-indigo-400 font-bold text-lg">:hover / :focus</span>
+                    <p class="text-xs text-slate-400 mt-1">User action & focus states</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-purple-400 font-bold text-lg">:nth-child()</span>
+                    <p class="text-xs text-slate-400 mt-1">Structural & DOM selectors</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-pink-400 font-bold text-lg">::before / ::after</span>
+                    <p class="text-xs text-slate-400 mt-1">Generated content & badges</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-emerald-400 font-bold text-lg">::placeholder</span>
+                    <p class="text-xs text-slate-400 mt-1">Form inputs & selections</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: PSEUDO-CLASSES (:) -->
+        <!-- ========================================== -->
+        <section id="pseudo-classes" class="scroll-mt-24 space-y-16">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-600 text-white">Section 1</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Pseudo-Classes (<code class="text-indigo-400">:</code>)</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    A pseudo-class is added to a selector to specify a special state of the element(s). They allow styling based on user actions, DOM structural positions, or form validation criteria.
+                </p>
+            </div>
+
+            <!-- Subsection 1.1: User Action States -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-sm">1.1</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">User Action States</h3>
+                        <p class="text-sm text-slate-400">Target elements when interacting with mouse, keyboard, or navigation history (<code class="text-indigo-300">:hover</code>, <code class="text-indigo-300">:active</code>, <code class="text-indigo-300">:focus</code>, <code class="text-indigo-300">:focus-within</code>, <code class="text-indigo-300">:visited</code>).</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippets</span>
+                            <span class="text-indigo-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;button</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-hover-btn"</span><span class="text-blue-400">&gt;</span>Hover & Click Me! 🎯<span class="text-blue-400">&lt;/button&gt;</span>
+<span class="text-blue-400">&lt;input</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-focus-input"</span> <span class="text-emerald-400">type</span>=<span class="text-amber-300">"text"</span> <span class="text-emerald-400">placeholder</span>=<span class="text-amber-300">"Click to Focus..."</span><span class="text-blue-400">&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">.demo-hover-btn:hover</span> {
+  <span class="text-sky-300">background</span>: <span class="text-amber-300">linear-gradient(135deg, #6366f1, #8b5cf6)</span>;
+  <span class="text-sky-300">transform</span>: <span class="text-amber-300">translateY(-2px)</span>;
+}
+<span class="text-purple-400">.demo-hover-btn:active</span> {
+  <span class="text-sky-300">transform</span>: <span class="text-amber-300">translateY(1px)</span>;
+}
+<span class="text-purple-400">.demo-focus-input:focus</span> {
+  <span class="text-sky-300">border-color</span>: <span class="text-amber-300">#6366f1</span>;
+  <span class="text-sky-300">box-shadow</span>: <span class="text-amber-300">0 0 0 3px rgba(99, 102, 241, 0.3)</span>;
+}</pre>
+                    </div>
+
+                    <!-- Live Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Actual Live Output Effect (Test interactive hover & focus)</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1"><code>:hover</code> & <code>:active</code> demonstration:</label>
+                                <button class="demo-hover-btn px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-medium text-sm transition-all duration-200 flex items-center space-x-2">
+                                    <span>Hover & Click Me! 🎯</span>
+                                    <span class="text-indigo-400">➔</span>
+                                </button>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1"><code>:focus</code> demonstration:</label>
+                                <input class="demo-focus-input w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-sm text-white transition-all" type="text" placeholder="Click to focus input...">
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
+                                <span>Checked a visited link? <a href="#pseudo-classes" class="demo-link text-indigo-400 underline font-medium">Click this anchor link</a></span>
+                                <span class="text-emerald-400">✨ Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection 1.2: Structural / DOM State -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">1.2</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Structural & DOM State</h3>
+                        <p class="text-sm text-slate-400">Target elements based on their position in the document tree (<code class="text-purple-300">:first-child</code>, <code class="text-purple-300">:last-child</code>, <code class="text-purple-300">:nth-child(n)</code>, <code class="text-purple-300">:not()</code>).</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippets</span>
+                            <span class="text-purple-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;ul</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-struct-list"</span><span class="text-blue-400">&gt;</span>
+  <span class="text-blue-400">&lt;li&gt;</span>Item 1 (:first-child)<span class="text-blue-400">&lt;/li&gt;</span>
+  <span class="text-blue-400">&lt;li&gt;</span>Item 2 (:nth-child even)<span class="text-blue-400">&lt;/li&gt;</span>
+  <span class="text-blue-400">&lt;li&gt;</span>Item 3 (:nth-child(3))<span class="text-blue-400">&lt;/li&gt;</span>
+  <span class="text-blue-400">&lt;li&gt;</span>Item 4 (:last-child)<span class="text-blue-400">&lt;/li&gt;</span>
+<span class="text-blue-400">&lt;/ul&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">li:first-child</span> { <span class="text-sky-300">color</span>: <span class="text-amber-300">#34d399</span>; }
+<span class="text-purple-400">li:last-child</span> { <span class="text-sky-300">color</span>: <span class="text-amber-300">#f87171</span>; }
+<span class="text-purple-400">li:nth-child(even)</span> { <span class="text-sky-300">background</span>: <span class="text-amber-300">rgba(59,130,246,0.1)</span>; }
+<span class="text-purple-400">p:not(.highlighted)</span> { <span class="text-sky-300">opacity</span>: <span class="text-amber-300">0.6</span>; }</pre>
+                    </div>
+
+                    <!-- Live Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Actual Live Output Effect (Structural Highlights)</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <ul class="demo-struct-list space-y-2 text-sm font-medium">
+                                <li class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between transition-all">
+                                    <span>🍏 Item 1: First Child Selector</span>
+                                    <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">:first-child</span>
+                                </li>
+                                <li class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between transition-all">
+                                    <span>🫐 Item 2: Even Row Selector</span>
+                                    <span class="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">:nth-child(even)</span>
+                                </li>
+                                <li class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between transition-all">
+                                    <span>🍊 Item 3: Specific Index Selector</span>
+                                    <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">:nth-child(3)</span>
+                                </li>
+                                <li class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between transition-all">
+                                    <span>🍓 Item 4: Last Child Selector</span>
+                                    <span class="text-xs px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">:last-child</span>
+                                </li>
+                            </ul>
+                            <div class="demo-not-box p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+                                <p class="highlighted-p p-2 rounded border text-xs font-medium">⭐ Highlighted Paragraph (Matches class criteria)</p>
+                                <p class="p-2 rounded border border-dashed border-slate-700 text-xs text-slate-400">Standard Paragraph (Targeted by <code>:not(.highlighted-p)</code>)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection 1.3: Form States -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm">1.3</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Form States</h3>
+                        <p class="text-sm text-slate-400">Style input fields and buttons based on interactivity and validation criteria (<code class="text-emerald-300">:checked</code>, <code class="text-emerald-300">:disabled</code>, <code class="text-emerald-300">:required</code>, <code class="text-emerald-300">:valid</code>).</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippets</span>
+                            <span class="text-emerald-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;label&gt;</span>
+  <span class="text-blue-400">&lt;input</span> <span class="text-emerald-400">type</span>=<span class="text-amber-300">"checkbox"</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-checkbox"</span><span class="text-blue-400">&gt;</span>
+  <span class="text-blue-400">&lt;span&gt;</span>Complete Masterclass Task<span class="text-blue-400">&lt;/span&gt;</span>
+<span class="text-blue-400">&lt;/label&gt;</span>
+<span class="text-blue-400">&lt;input</span> <span class="text-emerald-400">type</span>=<span class="text-amber-300">"email"</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-required-input"</span> <span class="text-emerald-400">required</span> <span class="text-emerald-400">placeholder</span>=<span class="text-amber-300">"Required Email..."</span><span class="text-blue-400">&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">input[type="checkbox"]:checked + span</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#34d399</span>;
+  <span class="text-sky-300">text-decoration</span>: <span class="text-amber-300">line-through</span>;
+}
+<span class="text-purple-400">input:required</span> {
+  <span class="text-sky-300">border-left</span>: <span class="text-amber-300">3px solid #f59e0b</span>;
+}
+<span class="text-purple-400">input:disabled</span> {
+  <span class="text-sky-300">opacity</span>: <span class="text-amber-300">0.5</span>;
+  <span class="text-sky-300">cursor</span>: <span class="text-amber-300">not-allowed</span>;
+}</pre>
+                    </div>
+
+                    <!-- Live Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Actual Live Output Effect (Interact with form widgets)</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <label class="flex items-center space-x-3 cursor-pointer p-3 rounded-xl bg-slate-900 border border-slate-800">
+                                <input type="checkbox" class="demo-checkbox w-5 h-5 rounded bg-slate-950 border-slate-700 text-emerald-500 focus:ring-emerald-500">
+                                <span class="text-sm text-slate-200 transition-colors">☑️ Check this box to trigger <code>:checked</code> state</span>
+                            </label>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Required Input (<code>:required</code> state indicator):</label>
+                                <input type="email" class="demo-required-input demo-valid-input w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-sm text-white" placeholder="Enter valid email (e.g., test@domain.com)..." value="user@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Disabled Input (<code>:disabled</code> state):</label>
+                                <input type="text" disabled class="demo-disabled-el w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-500" value="This field is disabled and locked">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: PSEUDO-ELEMENTS (::) -->
+        <!-- ========================================== -->
+        <section id="pseudo-elements" class="scroll-mt-24 space-y-16">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-pink-600 text-white">Section 2</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Pseudo-Elements (<code class="text-pink-400">::</code>)</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    A pseudo-element is used to style specific parts of an element, such as its first letter, line, or inserting generated decorative content before and after the element.
+                </p>
+            </div>
+
+            <!-- Subsection 2.1: Generated Content -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center font-bold text-sm">2.1</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Generated Content</h3>
+                        <p class="text-sm text-slate-400">Inject decorative icons, emojis, or badges dynamically using <code class="text-pink-300">::before</code> and <code class="text-pink-300">::after</code>.</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippets</span>
+                            <span class="text-pink-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;span</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-before-after"</span><span class="text-blue-400">&gt;</span>Dynamic Decorated Text<span class="text-blue-400">&lt;/span&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-badge-gen"</span><span class="text-blue-400">&gt;</span>Feature Title<span class="text-blue-400">&lt;/div&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">.demo-before-after::before</span> {
+  <span class="text-sky-300">content</span>: <span class="text-amber-300">"✨ "</span>;
+}
+<span class="text-purple-400">.demo-before-after::after</span> {
+  <span class="text-sky-300">content</span>: <span class="text-amber-300">" 🚀"</span>;
+}
+<span class="text-purple-400">.demo-badge-gen::after</span> {
+  <span class="text-sky-300">content</span>: <span class="text-amber-300">" NEW"</span>;
+  <span class="text-sky-300">background</span>: <span class="text-amber-300">#ef4444</span>;
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">white</span>;
+  <span class="text-sky-300">border-radius</span>: <span class="text-amber-300">9999px</span>;
+}</pre>
+                    </div>
+
+                    <!-- Live Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Actual Live Output Effect (Injected content elements)</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                                <span class="demo-before-after text-sm font-semibold text-pink-300">Dynamic Decorated Text</span>
+                                <span class="text-xs text-slate-500">::before / ::after</span>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                                <span class="demo-badge-gen text-sm font-semibold text-slate-200">Feature Title Badge</span>
+                                <span class="text-xs text-slate-500">::after badge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection 2.2: Typography & Selection -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center font-bold text-sm">2.2</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Typography & Selection</h3>
+                        <p class="text-sm text-slate-400">Style magazine drops caps, lead lines, and text highlight colors (<code class="text-sky-300">::first-letter</code>, <code class="text-sky-300">::first-line</code>, <code class="text-sky-300">::selection</code>).</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippets</span>
+                            <span class="text-sky-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-typography demo-selection-box"</span><span class="text-blue-400">&gt;</span>
+  <span class="text-blue-400">&lt;p&gt;</span>Typography styling transforms standard paragraphs into magazine-style layouts with drop caps and highlighted lines. Try highlighting this text with your mouse!<span class="text-blue-400">&lt;/p&gt;</span>
+<span class="text-blue-400">&lt;/div&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">p::first-letter</span> {
+  <span class="text-sky-300">font-size</span>: <span class="text-amber-300">2.5rem</span>;
+  <span class="text-sky-300">font-weight</span>: <span class="text-amber-300">800</span>;
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#818cf8</span>;
+  <span class="text-sky-300">float</span>: <span class="text-amber-300">left</span>;
+}
+<span class="text-purple-400">.demo-selection-box::selection</span> {
+  <span class="text-sky-300">background</span>: <span class="text-amber-300">#f43f5e</span>;
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#ffffff</span>;
+}</pre>
+                    </div>
+
+                    <!-- Live Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Actual Live Output Effect (Select text with mouse)</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <div class="demo-typography demo-selection-box p-5 rounded-xl bg-slate-900 border border-slate-800">
+                                <p class="text-sm text-slate-300 leading-relaxed">
+                                    Typography styling transforms standard paragraphs into magazine-style layouts with drop caps and highlighted lines. Try highlighting this text with your mouse to observe custom ::selection colors!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection 2.3: Forms & Placeholders -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-sm">2.3</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Forms & Placeholders</h3>
+                        <p class="text-sm text-slate-400">Customize input placeholder styling and file upload buttons (<code class="text-amber-300">::placeholder</code>, <code class="text-amber-300">::file-selector-button</code>).</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippets</span>
+                            <span class="text-amber-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;input</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-placeholder-input"</span> <span class="text-emerald-400">type</span>=<span class="text-amber-300">"text"</span> <span class="text-emerald-400">placeholder</span>=<span class="text-amber-300">"Type something here..."</span><span class="text-blue-400">&gt;</span>
+<span class="text-blue-400">&lt;input</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"demo-file-btn"</span> <span class="text-emerald-400">type</span>=<span class="text-amber-300">"file"</span><span class="text-blue-400">&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">input::placeholder</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#64748b</span>;
+  <span class="text-sky-300">font-style</span>: <span class="text-amber-300">italic</span>;
+}
+<span class="text-purple-400">input[type="file"]::file-selector-button</span> {
+  <span class="text-sky-300">background</span>: <span class="text-amber-300">#4f46e5</span>;
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">white</span>;
+  <span class="text-sky-300">padding</span>: <span class="text-amber-300">6px 14px</span>;
+  <span class="text-sky-300">border-radius</span>: <span class="text-amber-300">6px</span>;
+}</pre>
+                    </div>
+
+                    <!-- Live Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Actual Live Output Effect (Form element pseudo-elements)</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Custom Placeholder (<code>::placeholder</code>):</label>
+                                <input class="demo-placeholder-input w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-sm text-white" type="text" placeholder="Custom italic placeholder text...">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Custom File Button (<code>::file-selector-button</code>):</label>
+                                <input class="demo-file-btn w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-300" type="file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: ULTIMATE INTERACTIVE PLAYGROUND -->
+        <!-- ========================================== -->
+        <section id="playground" class="scroll-mt-24 space-y-12">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-indigo-500 to-pink-500 text-white">Section 3</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">The Ultimate Interactive Masterclass Sandbox</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    A comprehensive production-ready card component combining pseudo-classes (<code class="text-indigo-400">:hover</code>, <code class="text-indigo-400">:focus</code>, <code class="text-indigo-400">:checked</code>) and pseudo-elements (<code class="text-pink-400">::before</code>, <code class="text-pink-400">::after</code>) into a unified design system.
+                </p>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 via-indigo-950/20 to-slate-900 border border-indigo-500/30 rounded-2xl p-8 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                            🚀 Production Component Demo
+                        </span>
+                        <h3 class="text-2xl font-bold text-white">Interactive UI Card with Combined Pseudo-Selectors</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            This card utilizes <code class="text-indigo-300">:hover</code> for elevation and glow, <code class="text-indigo-300">:focus-within</code> for form container highlights, <code class="text-pink-300">::before</code> for dynamic badge icons, and <code class="text-emerald-300">:checked</code> for interactive checklist items.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs text-indigo-400 font-mono">:hover</span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs text-purple-400 font-mono">:focus-within</span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs text-pink-400 font-mono">::before</span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs text-emerald-400 font-mono">:checked</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Sandbox Card Widget -->
+                    <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-6 transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold">⚡</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">Pro Dashboard Widget</h4>
+                                    <p class="text-xs text-slate-400">Fully interactive live preview</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">ACTIVE</span>
+                        </div>
+
+                        <!-- Interactive Checkbox List -->
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer transition-colors hover:border-slate-700">
+                                <input type="checkbox" class="demo-checkbox w-4 h-4 rounded bg-slate-950 border-slate-700 text-emerald-500">
+                                <span class="text-xs text-slate-300">Complete Pseudo-Classes module</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer transition-colors hover:border-slate-700">
+                                <input type="checkbox" class="demo-checkbox w-4 h-4 rounded bg-slate-950 border-slate-700 text-emerald-500" checked>
+                                <span class="text-xs text-slate-300">Understand Pseudo-Elements (::before / ::after)</span>
+                            </label>
+                        </div>
+
+                        <!-- Focus Within Container -->
+                        <div class="demo-focus-within p-4 rounded-xl bg-slate-900/60 border border-slate-800 transition-all space-y-2">
+                            <label class="block text-xs font-semibold text-slate-300">Interactive Input Container (:focus-within):</label>
+                            <div class="flex space-x-2">
+                                <input class="demo-focus-input flex-1 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white" type="text" placeholder="Type here to test focus-within...">
+                                <button class="demo-hover-btn px-4 py-2 rounded-lg bg-indigo-600 text-xs font-semibold text-white transition-all">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-900 bg-slate-950 py-12 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p>CSS Pseudo-Classes & Pseudo-Elements Masterclass — Built with modern Tailwind CSS & responsive architecture.</p>
+            <p class="mt-2 text-xs text-slate-600">Explore user actions, structural DOM states, form validations, and generated content effortlessly.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
