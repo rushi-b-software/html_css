@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS Selectors Masterclass</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and smooth design touches */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round5" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">CSS Selectors Hub</h1>
+                    <p class="text-xs text-slate-400">Interactive Reference & Live Playground</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                <a href="#combinators" class="hover:text-indigo-400 transition-colors">1. Combinators</a>
+                <a href="#chaining" class="hover:text-indigo-400 transition-colors">2. Chaining</a>
+                <a href="#grouping" class="hover:text-indigo-400 transition-colors">3. Grouping</a>
+                <a href="#mixing" class="hover:text-indigo-400 transition-colors">4. Mixing All</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Header -->
+    <section class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-slate-950/0 to-slate-950/0 pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6">
+                Master Modern CSS Selectors
+            </span>
+            <h2 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Understand, Write & Visualize <br/><span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">CSS Selectors with Ease</span>
+            </h2>
+            <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+                A complete architectural breakdown of Relationship Combinators, Chaining (AND), Grouping (OR), and Complex Compositions with side-by-side live code and rendered output.
+            </p>
+
+            <!-- Structure Overview Card -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 text-left max-w-3xl mx-auto backdrop-blur-sm shadow-xl">
+                <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-4 flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                    What's Covered in This Guide
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-300">
+                    <div class="flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800/80">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">1</span>
+                        <div><strong class="text-white block">Relationship Combinators</strong><span class="text-xs text-slate-400">Descendant, Child, Adjacent Sibling, General Sibling</span></div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800/80">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center font-bold text-xs">2</span>
+                        <div><strong class="text-white block">Chaining Selectors (AND)</strong><span class="text-xs text-slate-400">Combining multiple conditions on a single element</span></div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800/80">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-xs">3</span>
+                        <div><strong class="text-white block">Grouping Selectors (OR)</strong><span class="text-xs text-slate-400">Applying shared styles across different selectors</span></div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800/80">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">4</span>
+                        <div><strong class="text-white block">Mixing It All Together</strong><span class="text-xs text-slate-400">Comprehensive real-world component composition</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- SECTION 1: RELATIONSHIP COMBINATORS -->
+        <section id="combinators" class="scroll-mt-24 space-y-12">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-500 text-white">Section 1</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Relationship Combinators</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    Combinators explain the relationship between selectors. They allow you to target elements based on their hierarchical placement in the DOM tree relative to other elements.
+                </p>
+            </div>
+
+            <!-- Sub-card 1.1: Descendant Combinator -->
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-indigo-400 font-mono font-bold text-lg">A B</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-indigo-500/10 text-indigo-300 font-medium">Descendant Combinator (Space)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Matches all elements that are descendants of a specified element (children, grandchildren, great-grandchildren, etc.).</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-indigo-300">
+                        div span { color: #818cf8; }
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-indigo-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"box"</span><span class="text-blue-400">&gt;</span>
+  <span class="text-blue-400">&lt;p&gt;</span>Direct child paragraph.<span class="text-blue-400">&lt;/p&gt;</span>
+  <span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"inner"</span><span class="text-blue-400">&gt;</span>
+    <span class="text-blue-400">&lt;p&gt;</span>Nested grandchild paragraph.<span class="text-blue-400">&lt;/p&gt;</span>
+  <span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;/div&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">.box p</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#38bdf8</span>;
+  <span class="text-sky-300">font-weight</span>: <span class="text-amber-300">600</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <!-- Live Demo Container -->
+                            <div class="descendant-demo p-4 rounded-lg bg-slate-900 border border-slate-800 space-y-3">
+                                <p class="text-sky-400 font-semibold text-sm">✓ Targeted: Direct child paragraph inside .box</p>
+                                <div class="p-3 rounded bg-slate-950/80 border border-slate-800">
+                                    <p class="text-sky-400 font-semibold text-sm">✓ Targeted: Nested grandchild paragraph inside .inner</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">Notice how both paragraphs are styled because the space combinator targets all nested levels.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-card 1.2: Child Combinator -->
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-violet-400 font-mono font-bold text-lg">A &gt; B</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-violet-500/10 text-violet-300 font-medium">Child Combinator (&gt;)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Matches only elements that are direct children (first-level descendants) of a specified element.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-violet-300">
+                        div > p { color: #a78bfa; }
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-violet-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"card"</span><span class="text-blue-400">&gt;</span>
+  <span class="text-blue-400">&lt;p&gt;</span>Direct child (Matches style).<span class="text-blue-400">&lt;/p&gt;</span>
+  <span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"wrapper"</span><span class="text-blue-400">&gt;</span>
+    <span class="text-blue-400">&lt;p&gt;</span>Nested grandchild (Ignored!).<span class="text-blue-400">&lt;/p&gt;</span>
+  <span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;/div&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">.card &gt; p</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#a78bfa</span>;
+  <span class="text-sky-300">font-weight</span>: <span class="text-amber-300">600</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <div class="p-4 rounded-lg bg-slate-900 border border-slate-800 space-y-3">
+                                <p class="text-violet-400 font-semibold text-sm">✓ Targeted: Direct child paragraph</p>
+                                <div class="p-3 rounded bg-slate-950/80 border border-slate-800">
+                                    <p class="text-slate-400 text-sm">✕ Not targeted: Nested grandchild paragraph inside wrapper</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">Only the direct child paragraph is styled. The grandchild inside .wrapper remains default color.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-card 1.3: Adjacent Sibling Combinator -->
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-emerald-400 font-mono font-bold text-lg">A + B</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-emerald-500/10 text-emerald-300 font-medium">Adjacent Sibling (+)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Matches the second element only if it immediately follows the first element and they share the same parent.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-emerald-300">
+                        h3 + p { color: #34d399; }
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-emerald-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;h3&gt;</span>Heading Title<span class="text-blue-400">&lt;/h3&gt;</span>
+<span class="text-blue-400">&lt;p&gt;</span>Immediately follows h3 (Matches!).<span class="text-blue-400">&lt;/p&gt;</span>
+<span class="text-blue-400">&lt;p&gt;</span>Second paragraph (Ignored!).<span class="text-blue-400">&lt;/p&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">h3 + p</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#34d399</span>;
+  <span class="text-sky-300">font-weight</span>: <span class="text-amber-300">600</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+                            <h4 class="text-white font-bold text-base">Heading Title</h4>
+                            <p class="text-emerald-400 font-semibold text-sm">✓ Targeted: Immediately follows h3</p>
+                            <p class="text-slate-400 text-sm">✕ Not targeted: Second paragraph in sequence</p>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">Only the paragraph directly succeeding the heading gets styled.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-card 1.4: General Sibling Combinator -->
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-amber-400 font-mono font-bold text-lg">A ~ B</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-300 font-medium">General Sibling (~)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Matches all elements that are siblings of a specified element and appear after it in the DOM tree.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-amber-300">
+                        h3 ~ p { color: #fbbf24; }
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-amber-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;h3&gt;</span>Section Title<span class="text-blue-400">&lt;/h3&gt;</span>
+<span class="text-blue-400">&lt;p&gt;</span>First following sibling (Matches!).<span class="text-blue-400">&lt;/p&gt;</span>
+<span class="text-blue-400">&lt;div&gt;</span>A div container in between<span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;p&gt;</span>Second following sibling (Matches too!).<span class="text-blue-400">&lt;/p&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">h3 ~ p</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#fbbf24</span>;
+  <span class="text-sky-300">font-weight</span>: <span class="text-amber-300">600</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+                            <h4 class="text-white font-bold text-base">Section Title</h4>
+                            <p class="text-amber-400 font-semibold text-sm">✓ Targeted: First following sibling</p>
+                            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-xs text-slate-400">A div container in between</div>
+                            <p class="text-amber-400 font-semibold text-sm">✓ Targeted: Second following sibling after div</p>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">All paragraph siblings appearing after the h3 are styled, even with intervening elements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CHAINING SELECTORS (AND) -->
+        <section id="chaining" class="scroll-mt-24 space-y-12">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-violet-500 text-white">Section 2</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Chaining Selectors (AND)</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    Chaining selectors without spaces applies styles only when an element satisfies <strong class="text-white">all</strong> of the combined selector conditions simultaneously.
+                </p>
+            </div>
+
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-violet-400 font-mono font-bold text-lg">tag.class#id[attr]</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-violet-500/10 text-violet-300 font-medium">Strict Intersection (AND)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Example: <code class="text-violet-300 bg-slate-950 px-1.5 py-0.5 rounded">button.primary.active</code> targets only buttons that have <em>both</em> classes.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-violet-300">
+                        input.admin-input[type="text"] { ... }
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-violet-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"card"</span><span class="text-blue-400">&gt;</span>Normal Card<span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"card featured"</span><span class="text-blue-400">&gt;</span>Featured Card (Matches both!)<span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;p</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"featured"</span><span class="text-blue-400">&gt;</span>Featured Paragraph (Ignored, not a div)<span class="text-blue-400">&lt;/p&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">div.card.featured</span> {
+  <span class="text-sky-300">background-color</span>: <span class="text-amber-300">#4c1d95</span>;
+  <span class="text-sky-300">border</span>: <span class="text-amber-300">2px solid #a78bfa</span>;
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#ffffff</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+                            <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-sm">
+                                Standard Card (.card only)
+                            </div>
+                            <div class="p-3 rounded-lg bg-violet-950/80 border-2 border-violet-400 text-white font-semibold text-sm shadow-lg shadow-violet-900/20">
+                                ✓ Highlighted Card (<code class="text-xs bg-violet-900 px-1 py-0.5 rounded">div.card.featured</code>)
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-sm">
+                                Standard Paragraph (.featured class, but not a div)
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">Only the second element matches because it is strictly a &lt;div&gt; with both classes attached.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GROUPING SELECTORS (OR) -->
+        <section id="grouping" class="scroll-mt-24 space-y-12">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-sky-500 text-white">Section 3</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Grouping Selectors (OR)</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    Grouping selectors using commas (<code class="text-sky-300">,</code>) allows you to apply the exact same block of CSS declarations to multiple distinct selectors simultaneously.
+                </p>
+            </div>
+
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sky-400 font-mono font-bold text-lg">Selector1, Selector2, Selector3</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-sky-500/10 text-sky-300 font-medium">Union / OR (,)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Reduces code duplication by sharing common design tokens across disparate elements.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-sky-300">
+                        h1, h2, .highlight-text { color: #38bdf8; }
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-sky-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+<span class="text-blue-400">&lt;h1&gt;</span>Heading One (Shared Style)<span class="text-blue-400">&lt;/h1&gt;</span>
+<span class="text-blue-400">&lt;h2&gt;</span>Heading Two (Shared Style)<span class="text-blue-400">&lt;/h2&gt;</span>
+<span class="text-blue-400">&lt;span</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"custom-badge"</span><span class="text-blue-400">&gt;</span>Custom Badge (Shared Style)<span class="text-blue-400">&lt;/span&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS --&gt;</span>
+<span class="text-purple-400">h1, h2, .custom-badge</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#38bdf8</span>;
+  <span class="text-sky-300">border-left</span>: <span class="text-amber-300">3px solid #38bdf8</span>;
+  <span class="text-sky-300">padding-left</span>: <span class="text-amber-300">8px</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
+                            <h1 class="text-sky-400 font-bold text-lg border-l-4 border-sky-400 pl-3">Heading One</h1>
+                            <h2 class="text-sky-400 font-semibold text-base border-l-4 border-sky-400 pl-3">Heading Two</h2>
+                            <div class="inline-block text-sky-400 font-medium text-sm border-l-4 border-sky-400 pl-3 py-0.5">Custom Badge Element</div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">All three distinct element types successfully receive identical styling rules from one grouped block.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: MIXING IT ALL TOGETHER -->
+        <section id="mixing" class="scroll-mt-24 space-y-12">
+            <div class="border-b border-slate-800 pb-5">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-500 text-white">Section 4</span>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Mixing It All Together</h2>
+                </div>
+                <p class="text-slate-400 max-w-3xl">
+                    Real-world frontend engineering combines combinators, chaining, pseudo-classes, and grouping to build robust, scalable component architectures.
+                </p>
+            </div>
+
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-emerald-400 font-mono font-bold text-lg">Comprehensive Component Demo</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-emerald-500/10 text-emerald-300 font-medium">Production Architecture</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">An interactive pricing card component demonstrating complex selector compositions in action.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-emerald-300">
+                        .pricing-card.featured > .card-header + .card-body p
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                    <!-- Raw Code Snippet -->
+                    <div class="p-6 bg-slate-950/60 font-mono text-xs">
+                        <div class="flex justify-between items-center mb-3 text-slate-500 text-[11px] uppercase tracking-wider font-semibold">
+                            <span>Raw Code Snippet</span>
+                            <span class="text-emerald-400">HTML & CSS</span>
+                        </div>
+                        <pre class="overflow-x-auto text-slate-300 leading-relaxed"><span class="text-slate-500">&lt;!-- HTML Component --&gt;</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"pricing-card featured"</span><span class="text-blue-400">&gt;</span>
+  <span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"card-header"</span><span class="text-blue-400">&gt;</span>
+    <span class="text-blue-400">&lt;h3&gt;</span>Pro Plan<span class="text-blue-400">&lt;/h3&gt;</span>
+    <span class="text-blue-400">&lt;span</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"badge"</span><span class="text-blue-400">&gt;</span>Popular<span class="text-blue-400">&lt;/span&gt;</span>
+  <span class="text-blue-400">&lt;/div&gt;</span>
+  <span class="text-blue-400">&lt;div</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"card-body"</span><span class="text-blue-400">&gt;</span>
+    <span class="text-blue-400">&lt;p</span> <span class="text-emerald-400">class</span>=<span class="text-amber-300">"price"</span><span class="text-blue-400">&gt;</span>$29<span class="text-blue-400">&lt;/p&gt;</span>
+    <span class="text-blue-400">&lt;ul</span><span class="text-blue-400">&gt;</span>
+      <span class="text-blue-400">&lt;li&gt;</span>Unlimited Projects<span class="text-blue-400">&lt;/li&gt;</span>
+      <span class="text-blue-400">&lt;li&gt;</span>Priority Support<span class="text-blue-400">&lt;/li&gt;</span>
+    <span class="text-blue-400">&lt;ul&gt;</span>
+  <span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;/div&gt;</span>
+
+<span class="text-slate-500">&lt;!-- CSS Complex Selectors --&gt;</span>
+<span class="text-purple-400">.pricing-card.featured</span> {
+  <span class="text-sky-300">border</span>: <span class="text-amber-300">2px solid #10b981</span>;
+  <span class="text-sky-300">background</span>: <span class="text-amber-300">linear-gradient(135deg, #064e3b, #0f172a)</span>;
+}
+<span class="text-purple-400">.pricing-card &gt; .card-header + .card-body</span> {
+  <span class="text-sky-300">padding-top</span>: <span class="text-amber-300">12px</span>;
+}
+<span class="text-purple-400">.card-body li:first-child, .card-body li:last-child</span> {
+  <span class="text-sky-300">color</span>: <span class="text-amber-300">#34d399</span>;
+}</pre>
+                    </div>
+
+                    <!-- Actual Visual Output -->
+                    <div class="p-6 bg-slate-900/20 flex flex-col justify-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Actual Output Effect</span>
+                        <div class="p-6 rounded-xl bg-slate-950 border border-slate-800 flex justify-center">
+                            <!-- Live Component Demo -->
+                            <div class="w-full max-w-sm rounded-2xl border-2 border-emerald-500 bg-gradient-to-br from-emerald-950/60 to-slate-900 p-6 shadow-2xl shadow-emerald-950/50">
+                                <div class="flex justify-between items-center pb-4 border-b border-emerald-500/30">
+                                    <h4 class="text-lg font-bold text-white">Pro Plan</h4>
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500 text-slate-950">Popular</span>
+                                </div>
+                                <div class="pt-4 space-y-4">
+                                    <div class="text-3xl font-extrabold text-emerald-400">$29<span class="text-xs font-normal text-slate-400"> /month</span></div>
+                                    <ul class="space-y-2 text-sm text-slate-300">
+                                        <li class="flex items-center text-emerald-300 font-medium">
+                                            <svg class="w-4 h-4 mr-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            Unlimited Projects (Targeted via :first-child)
+                                        </li>
+                                        <li class="flex items-center text-slate-300">
+                                            <svg class="w-4 h-4 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            Advanced Analytics Module
+                                        </li>
+                                        <li class="flex items-center text-emerald-300 font-medium">
+                                            <svg class="w-4 h-4 mr-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            Priority Support (Targeted via :last-child)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">This component demonstrates chained selectors (<code class="text-emerald-400">.pricing-card.featured</code>), adjacent combinators (<code class="text-emerald-400">.card-header + .card-body</code>), and grouped pseudo-classes (<code class="text-emerald-400">:first-child, :last-child</code>).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-12 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p>HTML & CSS Selectors Masterclass — Built with modern Tailwind CSS & responsive architecture.</p>
+            <p class="mt-2 text-xs text-slate-600">Explore relationship combinators, chaining, grouping, and complex selectors effortlessly.</p>
+        </div>
+    </body>
+</html>
