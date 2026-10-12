@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Text Formatting</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bground-red {
+            background-color: red;
+        }
+
+        .bground-blue {
+            background-color: blue;
+        }
+
+        .bground-black {
+            background-color: black;
+        }
+
+        .bground-green {
+            background-color: green;
+        }
+
+        .bground-yellow {
+            background-color: yellow;
+        }
+
+        .bground-cyan {
+            background-color: cyan;
+        }
+
+        .bground-magenta {
+            background-color: magenta;
+        }
+
+        .bground-white {
+            background-color: white;
+        }
+
+        .white-text {
+            color: white;
+        }
+
+        .red-text {
+            color: red;
+        }
+
+        .blue-text {
+            color: blue;
+        }
+
+        .black-text {
+            color: black;
+        }
+
+        .green-text {
+            color: green;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-justify {
+            text-align: justify;
+        }
+
+
+        /* Form Label Styling */
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+
+        /* Custom Select Container */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+            width: 300px;
+            font-family: sans-serif;
+        }
+
+        /* The main select box */
+        .form-select {
+            background-color: #1a1a1a;
+            color: #ffd700;
+            padding: 10px 15px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-select::after {
+            content: "▼";
+            font-size: 10px;
+            margin-left: 10px;
+        }
+
+        /* Dropdown options list container */
+        .custom-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            display: none;
+            z-index: 99;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .custom-select-wrapper.open .custom-options {
+            display: block;
+        }
+
+        /* Individual Option Styling */
+        .custom-option {
+            padding: 10px 15px;
+            color: #ffd700;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* Your exact requirement: Black background & Golden text on hover */
+        .custom-option:hover {
+            background-color: #000000 !important;
+            color: #ffd700 !important;
+        }
+
+        /* Selected option state inside the list */
+        .custom-option.selected {
+            background-color: #222;
+        }
+
+        /* Container layout */
+        .form-group {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Hide the default native radio input */
+        .radio-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Style the custom card */
+        .radio-card {
+            flex: 1;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.25s ease-in-out;
+            background-color: #f9f9f9;
+        }
+
+        .radio-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-icon {
+            font-size: 28px;
+        }
+
+        .option-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        /* Hover State */
+        .radio-card:hover {
+            border-color: #b0c4de;
+            background-color: #f0f4f8;
+        }
+
+        /* Checked/Active State */
+        .radio-input:checked+.radio-content .option-label {
+            color: #0066cc;
+            font-weight: 600;
+        }
+
+        .radio-input:checked~.radio-content,
+        /* fallback structure */
+        .radio-card:has(.radio-input:checked) {
+            border-color: #0066cc;
+            background-color: #e6f0fa;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="bground-black white-text">Heading 1</h1>
+    <h2 class="bground-blue red-text">Heading 2</h2>
+    <h3 class="bground-green blue-text">Heading 3</h3>
+    <h4 class="bground-yellow green-text">Heading 4</h4>
+    <h5 class="bground-cyan yellow-text">Heading 5</h5>
+    <h6 class="bground-magenta cyan-text">Heading 6</h6>
+
+    <hr class="horizontal-line">
+
+    <p class="paragraph">
+        This is a paragraph.
+        <br class="line-break">
+        This is the second line of the paragraph.
+        <br class="line-break">
+        This is the third line.
+    </p>
+
+    <p class="paragraph">
+        This is <b class="bold-text">Bold Text</b>.
+        This is <i class="italic-text">Italic Text</i>.
+        This is <strong class="strong-text">Strong Text</strong>.
+        This is <tt class="teletype-text">Teletype Text</tt>.
+        This is <code class="code-text">Code Text</code>.
+        This is <em class="emphasized-text">Emphasized Text</em>.
+    </p>
+
+
+
+    <label class="form-label" for="course">Select Course:</label>
+
+    <!-- Hidden native select to store value for form submission -->
+    <select id="course" name="course" style="display: block;">
+        <option value="">Choose a course</option>
+        <option value="entc">ENTC</option>
+        <option value="computer">Computer Engineering</option>
+        <option value="it">Information Technology</option>
+        <option value="mechanical">Mechanical Engineering</option>
+    </select>
+
+    <!-- Custom Dropdown Structure -->
+    <div class="custom-select-wrapper" id="customCourseSelect">
+        <div class="form-select">Choose a course</div>
+        <div class="custom-options">
+            <div class="custom-option selected" data-value="">Choose a course</div>
+            <div class="custom-option" data-value="entc">ENTC</div>
+            <div class="custom-option" data-value="computer">Computer Engineering</div>
+            <div class="custom-option" data-value="it">Information Technology</div>
+            <div class="custom-option" data-value="mechanical">Mechanical Engineering</div>
+        </div>
+    </div>
+
+
+    <hr>
+    <div class="form-group">
+        <label class="form-label">Gender:</label>
+
+        <div class="radio-group">
+            <!-- Male Option -->
+            <label class="radio-card" for="male">
+                <input class="form-input radio-input" type="radio" id="male" name="gender" value="male">
+                <span class="radio-content">
+                    <span class="radio-icon">👨</span>
+                    <span class="option-label">Male</span>
+                </span>
+            </label>
+
+            <!-- Female Option -->
+            <label class="radio-card" for="female">
+                <input class="form-input radio-input" type="radio" id="female" name="gender" value="female">
+                <span class="radio-content">
+                    <span class="radio-icon">👩</span>
+                    <span class="option-label">Female</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('customCourseSelect');
+        const selectBox = wrapper.querySelector('.form-select');
+        const optionsList = wrapper.querySelector('.custom-options');
+        const options = wrapper.querySelectorAll('.custom-option');
+        const nativeSelect = document.getElementById('course');
+
+        // Toggle dropdown open/close
+        selectBox.addEventListener('click', (e) => {
+            e.stopPropagation();
+            wrapper.classList.toggle('open');
+        });
+
+        // Handle option selection
+        options.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                // Update visible select text
+                selectBox.textContent = option.textContent;
+
+                // Update native select value for forms
+                const value = option.getAttribute('data-value');
+                nativeSelect.value = value;
+
+                // Update selected classes
+                options.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+
+                // Close dropdown
+                wrapper.classList.remove('open');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', () => {
+            wrapper.classList.remove('open');
+        });
+    </script>
+
+</body>
+
+</html>
